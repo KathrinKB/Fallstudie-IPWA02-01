@@ -1,0 +1,99 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      
+      >
+<h:head>
+  <link rel="stylesheet" type="text/css" media="screen" href="style.css"/>
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
+	<script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>  
+  <title>Ghost Net Fishing</title>
+</h:head>
+<h:body>
+  
+  <h1>Herzlich Willkommen</h1>
+  <h2>Wir freuen uns, dass du uns unterstützt, die Meere von Geisternetzen zu befreien! Du kannst dich hier für die Bergung von Netzen eintragen.
+  Nach erfolgreicher Bergung kannst du das Netz als geborgen markieren. Sollten Netze nicht mehr auffindbar sein, so markiere sie bitte 
+  als verschollen.</h2>
+
+<h:form>
+
+<p:commandButton value="interaktive Weltkarte" 
+  				action="weltkarte"
+  				ajax="false"/>
+ 
+ <p:commandButton value="Geisternetz melden" 
+  				action="#{geisternetzController.startMelden()}"
+  				ajax="false"/>
+  				
+  <p:dataTable var="geisternetz" value="#{ghostNetFishing.geisternetzeListe}">
+    <p:column>
+    <f:facet name="header">ID</f:facet>
+      <h:outputText value="#{geisternetz.id}"/>      		
+    </p:column>
+    
+    <p:column>
+    <f:facet name="header">Breitengrad</f:facet>
+      <h:outputText value="#{geisternetz.breitengrad}"/>      		
+    </p:column>
+    
+    <p:column>
+    <f:facet name="header">Längengrad</f:facet>
+      <h:outputText value="#{geisternetz.laengengrad}"/>      		
+    </p:column>
+    
+    <p:column sortBy="#{geisternetz.groesse}">
+      <f:facet name="header">geschätze Größe in m²</f:facet>
+      <h:outputText value="#{geisternetz.groesse}"/>
+    </p:column>
+    
+    <p:column sortBy="#{geisternetz.status}"
+     		  filterBy="#{geisternetz.status}">
+      <f:facet name="header">Status</f:facet>
+      <h:outputText value="#{geisternetz.status}"/>
+    </p:column> 
+     
+     <p:column sortBy="#{geisternetz.bergendePerson}"
+     			filterBy="#{geisternetz.bergendePerson}"
+     			rendered="#{sessionController.benutzerAngemeldet}">
+      <f:facet name="header">bergende Person</f:facet>
+      <h:outputText value="#{geisternetz.bergendePerson}"/>
+    </p:column> 
+       
+    
+    <p:column> 
+    <f:facet name="header">Aktionen</f:facet>   
+    <p:commandButton value="geborgen" 
+                     action="#{geisternetzController.geborgen(geisternetz)}"
+                     ajax="false"
+                     rendered="#{geisternetz.status=='zur Bergung angemeldet'}"/>
+    <p:commandButton value="Bergung anmelden" 
+                     action="#{geisternetzController.bergen(geisternetz)}"
+                     ajax="false"
+                     rendered="#{geisternetz.status=='gemeldet'}"/>
+    <p:commandButton value="verschollen" 
+                     action="#{geisternetzController.verschollen(geisternetz)}"
+                     ajax="false"
+                     rendered="#{geisternetz.status=='zur Bergung angemeldet'}"/>
+	</p:column>
+
+    
+   
+    
+  </p:dataTable>
+  
+  
+  
+  </h:form>
+  
+  
+    
+    
+  
+  
+  <p id="fussnote">Bitte beachten Sie: <br/> Diese Seite ist nur ein Entwurf!</p>
+</h:body>
+</html>

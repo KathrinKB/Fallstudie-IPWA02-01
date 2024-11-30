@@ -1,0 +1,59 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+<h:head>
+    <title>GhostNetFishing</title>
+    <link rel="stylesheet" type="text/css" media="screen" href="style.css"/>
+</h:head>
+
+<h:body>
+
+	<h1> Geisternetz melden </h1>
+
+    <h:form id="meldeformular">
+        
+            <p:panelGrid columns="2" 
+            columnClasses="ui-grid-col-2, ui-grid-col-4" 
+            styleClass="ui-panelgrid-blank ui-fluid"
+            style="border:0px none; background-color:transparent">
+						
+                
+                <p:outputLabel value="Breitengrad" for="breitengrad"/>
+                <p:inputText id="breitengrad" value="#{geisternetzController.geisternetz.breitengrad}"
+                			required="true"
+                			requiredMessage="Bitte trage hier den Breitengrad des Geisternetzes ein."
+                			size="40">
+                    <f:validateDoubleRange minimum="-90.00" maximum="90.00"/>
+                </p:inputText> 
+                
+                <p:outputLabel value="Längengrad" for="laengengrad"/>
+                <p:inputText id="laengengrad" value="#{geisternetzController.geisternetz.laengengrad}"
+                			required="true"
+                			requiredMessage="Bitte trage hier den Längengrad des Geisternetzes ein."
+                			size="40">
+                    <f:validateDoubleRange minimum="-180.00" maximum="180.00"/>
+                </p:inputText>  
+                
+                <p:outputLabel value="Größe (geschätzt)" for="groesse"/>
+                <p:inputText id="groesse" value="#{geisternetzController.geisternetz.groesse}"
+                             size="40" label="Größe"/>
+                
+
+                <!-- Speichern Button -->
+                <f:facet name="footer">
+                    <p:commandButton value="Speichern" icon="pi pi-save"
+                                     action="#{geisternetzController.stopMelden()}"
+                                     update="@all" ajax="false"/>
+                </f:facet>
+
+            </p:panelGrid>
+            
+             <p:messages display="text">
+                	<p:autoUpdate/>
+                </p:messages>
+       
+    </h:form>
+</h:body>
+</html>

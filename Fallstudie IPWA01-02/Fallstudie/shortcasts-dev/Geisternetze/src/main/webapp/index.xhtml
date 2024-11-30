@@ -1,0 +1,81 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      
+      >
+<h:head>
+  <link rel="stylesheet" type="text/css" media="screen" href="style.css"/>
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
+	<script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>  
+  <title>Ghost Net Fishing</title>
+</h:head>
+<h:body>
+  
+  <h1>Ghost Net Fishing - gemeinsam gegen Geisternetze</h1>
+
+
+<h:form>
+
+<p:commandButton rendered="#{sessionController.benutzerAngemeldet==false}"
+				value="Anmelden" 
+  				action="login"
+  				ajax="false"/>
+  				
+ <p:commandButton rendered="#{sessionController.benutzerAngemeldet==false}"
+				value="Registrieren" 
+  				action="registrieren"
+  				ajax="false"/>
+ 
+ <p:commandButton value="Geisternetz melden" 
+  				action="#{geisternetzController.startMelden()}"
+  				ajax="false"/>
+
+</h:form>
+ 
+ <h:outputText rendered="#{sessionController.benutzerAngemeldet==false}"
+    value="Melde dich an, um alle Funktionen von GhostNetFishing nutzen zu können."/>
+ 
+ <h:form>
+
+  <p:dataTable var="geisternetz" value="#{ghostNetFishing.geisternetzeListe}">
+    <p:column>
+    <f:facet name="header">ID</f:facet>
+      <h:outputText value="#{geisternetz.id}"/>      		
+    </p:column>
+   
+    <p:column>
+    <f:facet name="header">Längengrad</f:facet>
+      <h:outputText value="#{geisternetz.laengengrad}"/>      		
+    </p:column>
+    <p:column>
+    <f:facet name="header">Breitengrad</f:facet>
+      <h:outputText value="#{geisternetz.breitengrad}"/>      		
+    </p:column>
+    <p:column sortBy="#{geisternetz.groesse}">
+      <f:facet name="header">geschätze Größe in m²</f:facet>
+      <h:outputText value="#{geisternetz.groesse}"/>
+    </p:column>
+    <p:column sortBy="#{geisternetz.status}">
+      <f:facet name="header">Status</f:facet>
+      <h:outputText value="#{geisternetz.status}"/>
+    </p:column>  
+     <p:column sortBy="#{geisternetz.bergendePerson}"
+     			filterBy="#{geisternetz.bergendePerson}"
+     			rendered="#{sessionController.benutzerAngemeldet}">
+      <f:facet name="header">bergende Person</f:facet>
+      <h:outputText value="#{geisternetz.bergendePerson}"/>
+    </p:column> 
+    
+   </p:dataTable>
+  
+  
+  </h:form>
+  
+  
+  
+  <p id="fussnote">Bitte beachten Sie: <br/> Diese Seite ist nur ein Entwurf!</p>
+</h:body>
+</html>

@@ -1,0 +1,67 @@
+body {
+  font-family: Arial;
+}
+
+h1{
+  font-size: 3em;
+  color: blue;
+}
+
+h2{
+  font-size: 1.2em;
+  color: blue;
+}
+
+#kopf_links {
+  float: left;
+  margin: 5px;
+  margin-right: 20px;
+}
+
+#kopf_rechts {
+  height:130px;
+}
+
+p#fussnote {
+  font-size: 0.7em;
+}
+
+table.artikel {
+  border-collapse: collapse;
+}
+
+th, td {
+  border: 3px solid darkblue;
+  padding: 3px;
+  padding-left: 8px;
+}
+
+th {
+  text-align: left;
+  background-color: #b7b7ff;
+}
+
+
+
+td.bild img {
+  height: 100px;
+  width: 100px;
+}
+
+
+.error {
+    color: red;
+}
+
+
+body .ui-button {
+  background: #2196F3;
+  color: #ffffff;
+  border: 1px solid #2196F3;
+  margin: 6;
+  outline: 0 none;
+  border-radius: 4px;
+}
+
+
+
